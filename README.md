@@ -1,6 +1,6 @@
 # Annual-Class-schedule
 
-you will develop a prototype for an adaptable user interface of an annual class schedule application that provides similar functionality as the one available on the university’s website.
+Develop a prototype for an adaptable user interface of an annual class schedule application that provides similar functionality as the one available on the university’s website.
 Adaptable user interfaces offer to users the capability to select different presentation and interaction characteristics among the ones built into the application. 
 
 Adaptability is based on user characteristics and preferences that are known prior to interaction and are assumed to remain static throughout a single interaction session. Compared with the “one size fits all” approach, adaptable user interfaces promise better user experience.
