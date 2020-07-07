@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags-->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Annual Class Schedule">
+  <meta name="author" content="AcademicSchedule">
+  <meta name="keywords" content="Annual Class Schedule">
+
+  <!-- Title Page-->
+  <title>Annual Class Schedule App</title>
+    <!-- Icons font CSS-->
+    <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <!-- Font special for pages-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+
+    <!-- Vendor CSS-->
+    <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="css/main.css" rel="stylesheet" media="all">
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <!-- <div class="page-wrapper bg-gra-03 p-t-45 p-b-50"> -->
+        <!-- <div class="wrapper wrapper--w790"> -->
+            <div class="card card-5" style="min-height:100% !important">
+                <div class="card-heading">
+                    <h2 class="title">Search Courses</h2>
+                    <p style="float:right; color:#fff; margin-top:-1.5em; margin-right:2em;">
+                      <a class="logout" href="javascript:void(0)">Log Out</a>
+                    </p>
+                </div>
+                <div class="card-body">
+
+                  <p style="float:right; vertical-align:middle; color:#fff; margin-top:-1.5em; padding-bottom:2em;">
+                    <a href="admin_home.html">Back to Home</a>
+                  </p>
+
+                    <form method="POST">
+
+                        <div class="form-row">
+                            <div class="name">Select Facility</div>
+                            <div class="value">
+                                <div class="input-group">
+                                    <div class="rs-select2 js-select-simple select--no-search">
+                                        <select name="subject">
+                                            <option disabled="disabled" selected="selected">Choose option</option>
+                                            <option>Facility 1</option>
+                                            <option>Facility 2</option>
+                                        </select>
+                                        <div class="select-dropdown"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="name">Select Building</div>
+                            <div class="value">
+                                <div class="input-group">
+                                    <div class="rs-select2 js-select-simple select--no-search">
+                                        <select name="subject">
+                                            <option disabled="disabled" selected="selected">Choose option</option>
+                                            <option>Block-A</option>
+                                            <option>Block-B</option>
+                                        </select>
+                                        <div class="select-dropdown"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="name">Select Room</div>
+                            <div class="value">
+                                <div class="input-group">
+                                    <div class="rs-select2 js-select-simple select--no-search">
+                                        <select name="room" id="room" onchange="showCourses(this.value);">
+                                            <option disabled="disabled" selected="selected">Choose option</option>
+                                            <option value="1">Room 1</option>
+                                            <option value="2">Room 2</option>
+                                        </select>
+                                        <div class="select-dropdown"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="name">Courses</div>
+                            <div class="value" class="courses_list">
+                                <table class="course_tbl" id="c_tbl_1" style="display:none;">
+                                <thead>
+                                <tr>
+                                <th>ID</th>
+                                <th>Course Name</th>
+                                <th>Instructor</th>
+                                <th>Availability</th>
+                                <th>Timings</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                <td>CIS-611</td>
+                                <td>Introduction to Software Engineering</td>
+                                <td>Prof. Chris Whitty</td>
+                                <td>M W F</td>
+                                 <td>11:30pm-2:00pm</td>
+                                </tr>
+                                <tr>
+                                <td>HIM-345</td>
+                                <td>Clinical Informatics</td>
+                                <td>Prof. Robert Williams</td>
+                                <td>T W TH </td>
+                                <td>11:30pm-2:00pm</td>
+                                </tr>
+                                </tbody>
+                                </table>
+
+
+                                <table class="course_tbl" id="c_tbl_2" style="display:none;">
+                                <thead>
+                                <tr>
+                                <th>ID</th>
+                                <th>Course Name</th>
+                                <th>Instructor</th>
+                                <th>Availability</th>
+                                <th>Timings</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                <td>CIS 660</td>
+                                <td>Information Management and Science</td>
+                                <td>Prof. Paul Allen</td>
+                                <td>M T W</td>
+                                <td>12:30pm-3:30pm</td>
+                                </tr>
+                                <tr>
+                                <td>STA 518</td>
+                                <td>Statistical Computing and Graphics</td>
+                                <td>Prof. Kane Williamson</td>
+                                <td>All Week</td>
+                                <td>11:30pm-2:00pm</td>
+                                </tr>
+                                </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        <!-- </div> -->
+    <!-- </div> -->
+
+    <!-- Jquery JS-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <!-- Vendor JS-->
+    <script src="vendor/select2/select2.min.js"></script>
+
+    <!-- Main JS-->
+    <script src="js/global.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+    $( document ).ready(function() {
+
+    });
+
+    function showCourses(val) {
+
+      if(val == "1") {
+        $("#c_tbl_1").show();
+        $("#c_tbl_2").hide();
+      } else if(val == "2") {
+        $("#c_tbl_2").show();
+        $("#c_tbl_1").hide();
+      }
+
+
+    }
+
+
+    </script>
+
+
+</html>
+<!-- end document-->

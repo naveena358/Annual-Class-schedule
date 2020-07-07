@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags-->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Annual Class Schedule">
+  <meta name="author" content="AcademicSchedule">
+  <meta name="keywords" content="Annual Class Schedule">
+
+  <!-- Title Page-->
+  <title>Annual Class Schedule App</title>
+    <!-- Icons font CSS-->
+    <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <!-- Font special for pages-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+
+    <!-- Vendor CSS-->
+    <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="css/main.css" rel="stylesheet" media="all">
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <!-- <div class="page-wrapper bg-gra-03 p-t-45 p-b-50"> -->
+        <!-- <div class="wrapper wrapper--w790"> -->
+            <div class="card card-5" style="min-height:100% !important">
+                <div class="card-heading">
+                    <h2 class="title">Registered Courses</h2>
+                    <p style="float:right; color:#fff; margin-top:-1.5em; margin-right:2em;">
+                      <a class="logout" href="javascript:void(0)">Log Out</a>
+                    </p>
+                </div>
+
+                <div class="card-body">
+
+                  <p style="float:right; vertical-align:middle; color:#fff; margin-top:-1.5em; padding-bottom:2em;">
+                    <a href="senior_home.html">Back to Home</a>
+                  </p>
+
+                    <form method="POST" style="margin-top:40px;">
+
+                        <div class="form-row">
+                            <div class="name">Select Major</div>
+                            <div class="value">
+                                <div class="input-group">
+                                    <div class="rs-select2 js-select-simple select--no-search">
+                                        <select id="sel_major" onchange="fillCourses(this.value);">
+                                            <option disabled="disabled" selected="selected">Choose option</option>
+                                            <option>Computer Information Systems </option>
+                                            <option>Internatioinal Relations</option>
+                                            <option>Health Information Management</option>
+                                            <option>Women and Gender Studies</option>
+                                            <option>Management and Information Systems</option>
+                                            <option>Data Science and Analytics</option>
+
+                                        </select>
+                                        <div class="select-dropdown"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="name">Courses</div>
+                            <div class="value" id="div_available">
+                                -
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        <!-- </div> -->
+    <!-- </div> -->
+
+    <!-- Jquery JS-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <!-- Vendor JS-->
+    <script src="vendor/select2/select2.min.js"></script>
+
+    <!-- Main JS-->
+    <script src="js/global.js"></script>
+    <script src="js/script.js"></script>
+
+    <script>
+
+    var courseObject = {};
+    courseObject['Computer Information Systems'] = ['CIS-611 Introsuction to software engineering-- James - M -- 1:30pm-4:00pm','CIS-623 Graphical user interface design - T -- 12:30pm-1:30pm', 'CIS 660 - Information Management and Science-Tao - W -- 11:00am-12:30pm'];
+    courseObject['Internatioinal Relations'] = ['IR-334 Independent readings  -- kim - M -- 1:30pm-4:00pm','1R-555 International relation intern-- SamanthA - T -- 12:30pm-1:30pm'];
+    courseObject['Health Information Management'] = ['HIM-345 clinical informatics-- Robert - W -- 12:30pm-1:30pm','HIM-661 introduction to health and bioinformatics--William - R -- 11:00am-12:30pm'];
+    courseObject['Women and Gender Studies'] = ['WGS-676 WGS special topics-- Adams - M -- 11:00am-12:30pm','WGS-490 Intro to gender studies-- Samantha - T -- 12:30pm-1:30pm'];
+    courseObject['Management and Information Systems'] = ['MIS-309 Introductory Macroeconomics- Devries - W -- 12:30pm-1:30pm','MIS-342 Principles of Financial Accounting-- Leidig - R -- 1:30pm-4:00pm'];
+    courseObject['Data Science and Analytics'] = ['CIS 660 - Information Management and Science-- Paul - W -- 1:30pm-4:00pm', 'STA 518 - Statistical Computing and Graphics with R-- Heather - M -- 11:00am-12:30pm'];
+
+    $( document ).ready(function() {
+
+      $('body').on('click', 'a.add_lnk', function() {
+
+        var user_type = window.localStorage.getItem("USER_TYPE");
+        var storage_key = "SAVED_COURSES_" + user_type;
+
+        var c = $(this).attr("course");
+        var names = [];
+        var courseNames = JSON.parse(window.localStorage.getItem(storage_key));
+        if(courseNames == null) {
+          names.push(c);
+          window.localStorage.setItem(storage_key, JSON.stringify(names));
+        } else {
+          courseNames.push(c);
+          window.localStorage.setItem(storage_key, JSON.stringify(courseNames));
+        }
+
+      });
+
+    });
+
+    function fillCourses(c){
+
+      var arr = courseObject[c];
+      var tbl = '<table class="course_tbl">';
+      tbl += '<thead><tr>';
+      tbl += '<th>Course</th>';
+      // tbl += '<th></th>';
+      tbl += '</tr></thead>';
+      tbl += '<tbody>';
+
+        $.each(arr, function( index, value ) {
+
+          tbl += '<tr>';
+          tbl += '<td>'+value+'</td>';
+          // tbl += '<td><a href="javascript:void(0)" class="add_lnk" course="'+value+'">Add</a></td>';
+
+        });
+
+      tbl += '</tbody>';
+      tbl += '</table>';
+
+      $("#div_available").html(tbl);
+
+    }
+
+    function fillMajors(val, elm) {
+    	let dropdown = $(elm);
+    	dropdown.empty();
+    	dropdown.append('<option disabled="disabled" selected="selected">Choose option</option>');
+
+    	dropdown.prop('selectedIndex', 0);
+
+    	for (var i = 20; i < 50; i++) {
+        dropdown.append($('<option></option>').attr('value', i).text(i));
+    	}
+
+    }
+
+
+
+    </script>
+
+
+</html>
+<!-- end document-->

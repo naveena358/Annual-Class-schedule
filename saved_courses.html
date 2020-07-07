@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags-->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Annual Class Schedule">
+  <meta name="author" content="AcademicSchedule">
+  <meta name="keywords" content="Annual Class Schedule">
+
+  <!-- Title Page-->
+  <title>Annual Class Schedule App</title>
+    <!-- Icons font CSS-->
+    <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+    <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+    <!-- Font special for pages-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+
+    <!-- Vendor CSS-->
+    <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="css/main.css" rel="stylesheet" media="all">
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <!-- <div class="page-wrapper bg-gra-03 p-t-45 p-b-50"> -->
+        <!-- <div class="wrapper wrapper--w790"> -->
+            <div class="card card-5" style="min-height:100% !important">
+                <div class="card-heading">
+                    <h2 class="title">My Saved Courses</h2>
+                    <p style="float:right; color:#fff; margin-top:-1.5em; margin-right:2em;">
+                      <a class="logout" href="javascript:void(0)">Log Out</a>
+                    </p>
+                </div>
+
+                <div class="card-body">
+
+                  <p style="float:right; vertical-align:middle; color:#fff; margin-top:-1.5em; padding-bottom:2em;">
+                    <a href="javascript:void(0)" id="home_but">Back to Home</a>
+                  </p>
+
+                    <form method="POST" style="margin-top:40px;">
+
+                        <div class="form-row">
+                            <!-- <div class="name">Courses Available</div> -->
+                            <div class="value" id="div_available">
+                                <div style="border:1px solid #f1f1f1; padding:20px;">
+                                  You have not added any courses yet.
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        <!-- </div> -->
+    <!-- </div> -->
+
+    <!-- Jquery JS-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <!-- Vendor JS-->
+    <script src="vendor/select2/select2.min.js"></script>
+
+    <!-- Main JS-->
+    <script src="js/global.js"></script>
+    <script src="js/script.js"></script>
+
+    <script>
+
+      Array.prototype.remove = function() {
+      var what, a = arguments, L = a.length, ax;
+      while (L && this.length) {
+          what = a[--L];
+          while ((ax = this.indexOf(what)) !== -1) {
+              this.splice(ax, 1);
+          }
+      }
+      return this;
+    };
+
+
+    $( document ).ready(function() {
+
+      var user_type = window.localStorage.getItem("USER_TYPE");
+      var storage_key = "SAVED_COURSES_" + user_type;
+
+      var courseNames = JSON.parse(window.localStorage.getItem(storage_key));
+      if(courseNames == null || courseNames.length==0) {
+
+      } else {
+        fillCourses(courseNames);
+      }
+
+      $('body').on('click', 'a.remove_lnk', function() {
+
+        var user_type = window.localStorage.getItem("USER_TYPE");
+        var storage_key = "SAVED_COURSES_" + user_type;
+
+        var c = $(this).attr("course");
+        var courseNames = JSON.parse(window.localStorage.getItem(storage_key));
+        if(courseNames == null || courseNames.length==0) {
+
+        } else {
+          courseNames.remove(c);
+          window.localStorage.setItem(storage_key, JSON.stringify(courseNames));
+          fillCourses(courseNames);
+        }
+
+      });
+
+
+
+    });
+
+    function fillCourses(arr){
+
+      if(arr.length == 0) {
+        var div = '<div style="border:1px solid #f1f1f1; padding:20px;">';
+          div += 'You have not added any courses yet.</div>';
+        $("#div_available").html(div);
+
+      } else {
+
+      var tbl = '<table class="course_tbl">';
+      tbl += '<thead><tr>';
+      tbl += '<th>Course</th><th></th>';
+      tbl += '</tr></thead>';
+      tbl += '<tbody>';
+
+        $.each(arr, function( index, value ) {
+
+          tbl += '<tr>';
+          tbl += '<td>'+value+'</td>';
+          tbl += '<td><a href="javascript:void(0)" class="remove_lnk" course="'+value+'">Remove</a></td>';
+
+        });
+
+      tbl += '</tbody>';
+      tbl += '</table>';
+
+      $("#div_available").html(tbl);
+    }
+
+    }
+
+    </script>
+
+
+</html>
+<!-- end document-->
